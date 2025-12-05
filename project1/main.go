@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"project1/config"
 	"project1/dao"
@@ -13,7 +14,13 @@ func main() {
 	if err != nil {
 		log.Fatal("加载配置文件失败:", err)
 	}
-	dsn := cfg.Mysql.Account + ":" + cfg.Mysql.Password + "@tcp(" + cfg.Server + ":3306)/auth_db?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		cfg.Mysql.Account,
+		cfg.Mysql.Password,
+		cfg.Mysql.Host,
+		cfg.Mysql.Port,
+		cfg.Mysql.DbName,
+	)
 	//初始化数据库
 	err = dao.InitDB(dsn)
 	if err != nil {

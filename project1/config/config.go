@@ -16,6 +16,9 @@ type Config struct {
 type Mysql struct {
 	Account  string `yaml:"account"`
 	Password string `yaml:"password"`
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	DbName   string `yaml:"dbname"`
 }
 type Redis struct {
 	Address  string `yaml:"address"`
