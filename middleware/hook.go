@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"project1/config"
-	"project1/dao"
+	"Supply/Supply_and_Demand/config"
+	"Supply/Supply_and_Demand/dao"
 	"project1/utils"
 	"strings"
 

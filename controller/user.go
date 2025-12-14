@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"project1/config"
+	"Supply/Supply_and_Demand/config"
 	"project1/http_models"
 	"project1/service"
 

@@ -1,9 +1,8 @@
 package router
 
 import (
-	"project1/controller"
-	"project1/middleware"
-
+	"Supply/Supply_and_Demand/controller"
+	"Supply/Supply_and_Demand/middleware"
 	"github.com/gin-gonic/gin"
 )
 

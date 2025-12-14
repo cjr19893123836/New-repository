@@ -2,8 +2,6 @@ package utils
 
 import (
 	"time"
-
-	"github.com/golang-jwt/jwt/v4"
 )
 
 var jwtSecret = []byte("your-secret-key-change-in-production") // 生产环境要更改,jwt密钥
