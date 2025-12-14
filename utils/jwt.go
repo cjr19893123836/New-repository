@@ -1,11 +1,12 @@
 package utils
 
 import (
+	"github.com/golang-jwt/jwt/v4"
 	"time"
 )
 
 var jwtSecret = []byte("your-secret-key-change-in-production") // 生产环境要更改,jwt密钥
-// 声明jwt结构体
+// Claims 声明jwt结构体
 type Claims struct {
 	UserID   uint   `json:"user_id"`
 	Username string `json:"username"`

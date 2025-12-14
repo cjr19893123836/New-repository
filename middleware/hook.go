@@ -2,8 +2,7 @@ package middleware
 
 import (
 	"Supply/Supply_and_Demand/config"
-	"Supply/Supply_and_Demand/dao"
-	"project1/utils"
+	"Supply/Supply_and_Demand/utils"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -32,7 +31,7 @@ func AuthHook() gin.HandlerFunc {
 		}
 		tokenString := parts[1] //提取jwt令牌中的字符串
 		//解析令牌
-		claims, err := utils.ParseToken(tokenString)
+		_, err := utils.ParseToken(tokenString)
 		if err != nil {
 			ctx.JSON(config.Unauthorized, gin.H{
 				"error": "令牌无效或已过期:" + err.Error(),
@@ -40,24 +39,24 @@ func AuthHook() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
-		//验证用户是否存在
-		user, err := dao.GetUserByID(claims.UserID)
-		if err != nil {
-			ctx.JSON(config.Unauthorized, gin.H{
-				"error": "用户不存在:" + err.Error(),
-			})
-			ctx.Abort()
-			return
-		}
-		// 手动构建用户信息，因为User结构体没有JSON标签了
-		ctx.Set("user", gin.H{
-			"user_id":    user.UserID,
-			"username":   user.Username,
-			"email":      user.Email,
-			"phone":      user.Phone,
-			"created_at": user.CreatedAt,
-			"last_login": user.LastLogin,
-		})
+		////验证用户是否存在
+		//user, err := dao.GetUserByID(claims.UserID)
+		//if err != nil {
+		//	ctx.JSON(config.Unauthorized, gin.H{
+		//		"error": "用户不存在:" + err.Error(),
+		//	})
+		//	ctx.Abort()
+		//	return
+		//}
+		//// 手动构建用户信息，因为User结构体没有JSON标签了
+		//ctx.Set("user", gin.H{
+		//	"user_id":    user.UserID,
+		//	"username":   user.Username,
+		//	"email":      user.Email,
+		//	"phone":      user.Phone,
+		//	"created_at": user.CreatedAt,
+		//	"last_login": user.LastLogin,
+		//})
 		ctx.Next()
 	}
 }

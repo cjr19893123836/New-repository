@@ -1,14 +1,23 @@
 package dao
 
 import (
+	"Supply/Supply_and_Demand/global"
+	"Supply/Supply_and_Demand/http_models"
 	"errors"
 	"log"
-	"project1/http_models"
 
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
+
+type UserDao struct {
+	Orm *gorm.DB
+}
+
+func NewUserDao() *UserDao {
+	return &UserDao{Orm: global.DB}
+}
 
 var DB *gorm.DB //声明全局变量（数据库)(入口)
 // InitDB 连接数据库
@@ -28,20 +37,20 @@ func InitDB(dsn string) error {
 }
 
 // CreateUser 创建用户
-func CreateUser(user http_models.User) error {
+func (m *UserDao) CreateUser(user http_models.User) error {
 	//密码加密
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
 	user.Password = string(hashedPassword)
-	return DB.Create(&user).Error
+	return m.Orm.Create(&user).Error
 }
 
 // UserLoginByPhone 手机号登录
-func UserLoginByPhone(phone, password string) (http_models.User, error) {
+func (m *UserDao) UserLoginByPhone(phone, password string) (http_models.User, error) {
 	user := http_models.User{}
-	err := DB.Where("phone = ?", phone).First(&user).Error
+	err := m.Orm.Where("phone = ?", phone).First(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return http_models.User{}, errors.New("用户不存在")
@@ -57,9 +66,9 @@ func UserLoginByPhone(phone, password string) (http_models.User, error) {
 }
 
 // UserLoginByEmail 邮箱登录
-func UserLoginByEmail(email, password string) (http_models.User, error) {
+func (m *UserDao) UserLoginByEmail(email, password string) (http_models.User, error) {
 	user := http_models.User{}
-	err := DB.Where("email = ?", email).First(&user).Error
+	err := m.Orm.Where("email = ?", email).First(&user).Error
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return http_models.User{}, errors.New("用户不存在")
@@ -75,16 +84,16 @@ func UserLoginByEmail(email, password string) (http_models.User, error) {
 }
 
 // GetUserByID 根据ID获取用户
-func GetUserByID(userID uint) (http_models.User, error) {
+func (m *UserDao) GetUserByID(userID uint) (http_models.User, error) {
 	user := http_models.User{}
-	err := DB.Where("user_id = ?", userID).First(&user).Error // 改为按 user_id 查询
+	err := m.Orm.Where("user_id = ?", userID).First(&user).Error // 改为按 user_id 查询
 	return user, err
 }
 
 // CheckUserExists 检查用户是否已存在
-func CheckUserExists(username, email, phone string) (bool, error) {
+func (m *UserDao) CheckUserExists(username, email, phone string) (bool, error) {
 	var count int64
-	err := DB.Model(&http_models.User{}).Where("username = ? OR email = ? OR phone = ?", username, email, phone).Count(&count).Error
+	err := m.Orm.Model(&http_models.User{}).Where("username = ? OR email = ? OR phone = ?", username, email, phone).Count(&count).Error
 	if err != nil {
 		return false, err
 	}

@@ -1,7 +1,7 @@
 package router
 
 import (
-	"Supply/Supply_and_Demand/controller"
+	"Supply/Supply_and_Demand/controller/http_controller"
 	"Supply/Supply_and_Demand/middleware"
 	"github.com/gin-gonic/gin"
 )
@@ -14,17 +14,17 @@ func SetupRouter() *gin.Engine {
 	public := router.Group("/api/v1") //URL统一前缀未api/v1
 	{
 		//注册接口:POST请求+/api/v1/register->对应的USerRegister函数
-		public.POST("/register", controller.UserRegister)
+		public.POST("/register", http_controller.UserRegister)
 		//手机号登录接口:POST请求+/api/v1/login/phone->对应的USerLoginByPhone函数
-		public.POST("/login/phone", controller.UserLoginByPhone)
+		public.POST("/login/phone", http_controller.UserLoginByPhone)
 		//邮箱登录接口:POST请求+/api/v1/login/login->对应的USerLoginByLogin函数
-		public.POST("/login/email", controller.UserLoginByEmail)
+		public.POST("/login/email", http_controller.UserLoginByEmail)
 	}
 	//受保护的路由(jwt认证)
 	protected := router.Group("/api/v1")
 	protected.Use(middleware.AuthHook())
 	{ // 获取用户信息接口：GET 请求 + /api/v1/user/profile → 对应 GetUserProfile 函数
-		protected.GET("/user/profile", controller.GetUserProfile)
+		protected.GET("/user/profile", http_controller.GetUserProfile)
 	}
 	return router
 }

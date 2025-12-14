@@ -2,17 +2,33 @@ package service
 
 import (
 	"Supply/Supply_and_Demand/dao"
+	"Supply/Supply_and_Demand/global"
 	http_models2 "Supply/Supply_and_Demand/http_models"
+	"Supply/Supply_and_Demand/utils"
 	"errors"
 	"fmt"
-	"project1/utils"
 	"time"
 )
 
+type UserService struct {
+	Dao *dao.UserDao
+}
+
+var userService *UserService
+
+func NewUserService() *UserService {
+	if userService == nil {
+		userService = &UserService{
+			Dao: dao.NewUserDao(),
+		}
+	}
+	return userService
+}
+
 // UserRegister 用户注册服务(前后端交互)
-func UserRegister(registerInfo http_models2.UserRegister) (uint, error) {
+func (m *UserService) UserRegister(registerInfo http_models2.UserRegister) (uint, error) {
 	// 检查用户名、邮箱、手机号是否已存在
-	exists, err := dao.CheckUserExists(registerInfo.Username, registerInfo.Email, registerInfo.Phone)
+	exists, err := m.Dao.CheckUserExists(registerInfo.Username, registerInfo.Email, registerInfo.Phone)
 	if err != nil {
 		return 0, err
 	}
@@ -27,7 +43,7 @@ func UserRegister(registerInfo http_models2.UserRegister) (uint, error) {
 		Email:    registerInfo.Email,
 		Phone:    registerInfo.Phone,
 	}
-	err = dao.CreateUser(user)
+	err = m.Dao.CreateUser(user)
 	if err != nil {
 		fmt.Println("注册失败:", err.Error())
 		return 0, err
@@ -44,9 +60,9 @@ func UserRegister(registerInfo http_models2.UserRegister) (uint, error) {
 }
 
 // UserLoginByPhone 手机号登录服务
-func UserLoginByPhone(LoginInfo *http_models2.UserLoginByPhone) (*http_models2.LoginSuccessData, error) {
+func (m *UserService) UserLoginByPhone(LoginInfo *http_models2.UserLoginByPhone) (*http_models2.LoginSuccessData, error) {
 	//身份校验
-	user, err := dao.UserLoginByPhone(LoginInfo.Phone, LoginInfo.Password)
+	user, err := m.Dao.UserLoginByPhone(LoginInfo.Phone, LoginInfo.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -66,8 +82,8 @@ func UserLoginByPhone(LoginInfo *http_models2.UserLoginByPhone) (*http_models2.L
 }
 
 // UserLoginByEmail 邮箱登录
-func UserLoginByEmail(loginInfo *http_models2.UserLoginByEmail) (*http_models2.LoginSuccessData, error) {
-	user, err := dao.UserLoginByEmail(loginInfo.Email, loginInfo.Password)
+func (m *UserService) UserLoginByEmail(loginInfo *http_models2.UserLoginByEmail) (*http_models2.LoginSuccessData, error) {
+	user, err := m.Dao.UserLoginByEmail(loginInfo.Email, loginInfo.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +92,7 @@ func UserLoginByEmail(loginInfo *http_models2.UserLoginByEmail) (*http_models2.L
 		return nil, err
 	}
 	//更新最后登录时间
-	dao.DB.Model(&user).Update("last_login", time.Now())
+	global.DB.Model(&user).Update("last_login", time.Now())
 	return &http_models2.LoginSuccessData{ //创建结构体指针
 		UserID:   user.UserID,
 		Username: user.Username,
