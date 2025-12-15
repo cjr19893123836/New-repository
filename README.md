@@ -1,6 +1,6 @@
 # Supply_and_demand
 
-> [kdos文档](https://www.kdocs.cn/l/ceSdB4C50d7w)
+> [kdos文档](https://www.kdocs.cn/l/ceSdB4C50d7w) [database文档](./instruction/database_note.md)
 
 # 注册、登录
 
