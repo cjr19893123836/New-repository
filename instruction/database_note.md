@@ -14,6 +14,8 @@
 
 ## Introduction
 
+> [文件链接](https://www.drawdb.app/editor?shareId=9bced306cbde5320c1b165f81f4c248d)
+
 ![datebase](../image/datebase_note-1.png)
 
 ## Database type
