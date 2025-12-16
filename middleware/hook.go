@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"Supply/Supply_and_Demand/config"
+	"Supply/Supply_and_Demand/controller"
 	"Supply/Supply_and_Demand/utils"
 	"strings"
 
@@ -14,7 +14,7 @@ func AuthHook() gin.HandlerFunc {
 		//从http请求头中获取Authorization字段
 		authHeader := ctx.GetHeader("Authorization")
 		if authHeader == "" {
-			ctx.JSON(config.Unauthorized, gin.H{ //给前端返回错误响应(401)
+			ctx.JSON(controller.Unauthorized, gin.H{ //给前端返回错误响应(401)
 				"error": "Authorization header is empty",
 			})
 			ctx.Abort() //终止流程
@@ -23,7 +23,7 @@ func AuthHook() gin.HandlerFunc {
 		//将Authorization进行分割,Bearer <token>
 		parts := strings.SplitN(authHeader, " ", 2)
 		if !(len(parts) == 2 && parts[0] == "Bearer") {
-			ctx.JSON(config.Unauthorized, gin.H{
+			ctx.JSON(controller.Unauthorized, gin.H{
 				"error": "Authorization header is invalid,应为:Bearer <token>",
 			})
 			ctx.Abort()
@@ -33,7 +33,7 @@ func AuthHook() gin.HandlerFunc {
 		//解析令牌
 		_, err := utils.ParseToken(tokenString)
 		if err != nil {
-			ctx.JSON(config.Unauthorized, gin.H{
+			ctx.JSON(controller.Unauthorized, gin.H{
 				"error": "令牌无效或已过期:" + err.Error(),
 			})
 			ctx.Abort()

@@ -1,0 +1,50 @@
+server:
+  port: "8080"
+  mode: "debug" # debug模式
+  timeout: 30
+  allow_origin: "*"  # 允许的跨域来源，*表示允许所有
+  allow_methods: "GET,POST,PUT,DELETE,OPTIONS"  # 允许的HTTP方法
+  allow_headers: "Origin, Content-Length, Content-Type, Authorization ,Accept, token"  # 允许的请求头
+  cors_max_age: 86400  # 预检请求缓存时间(秒)
+
+mode:
+  develop: true
+
+mysql:
+  host: ""
+  port: ""
+  user: ""  # 使用专用数据库用户(换成自己的)
+  password: ""  # 数据库密码，请妥善保管(换成自己的)
+  dbname: "" # 数据库名称(换成自己的)
+  charset: ""
+
+redis:
+  host: ""
+  port: ""
+  password: ""  # Redis密码，请妥善保管(换成自己的)
+  db: 0
+
+jwt:
+  secret: "your-jwt-secret-key-change-in-production"  # JWT密钥，请使用强密码
+  expire: 0
+  issuer: "SupplyUser"
+  whitelist: [
+    '/api/v1/users/getUserList']
+
+rate_limit:
+  enable: true
+  rate: 100.0
+  capacity: 1000
+
+http_routes:
+  - prefix: "/api/v1/users"
+    routes:
+      - path: "/Register"
+        methods: ["POST"]
+        handler: "UserRegister"
+      - path: "/LoginByPhone"
+        methods: ["POST"]
+        handler: "UserLoginByPhone"
+      - path: "/LoginByEmail"
+        methods: ["POST"]
+        handler: "UserLoginByEmail"

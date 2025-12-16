@@ -1,7 +1,11 @@
-package config
+package controller
 
 // 统一状态码
 const (
+	UNAUTHORIZEDOPERATION_ERROR_CODE = 5003 // 请求无权限
+	TOKENPARSE_ERROR_CODE            = 5008 // Token解析失败
+	TOKENCHECK_ERROR_CODE            = 5009 // Token校验失败
+
 	Success       = 200 //通用成功
 	BadRequest    = 400 //请求参数错误
 	Unauthorized  = 401 //未授权

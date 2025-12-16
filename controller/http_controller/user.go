@@ -1,19 +1,15 @@
 package http_controller
 
 import (
-	"Supply/Supply_and_Demand/config"
 	"Supply/Supply_and_Demand/controller"
-	"Supply/Supply_and_Demand/dao"
 	"Supply/Supply_and_Demand/http_models"
 	"Supply/Supply_and_Demand/service"
-
 	"github.com/gin-gonic/gin"
 )
 
 type UserController struct {
 	controller.BaseApi
 	Service *service.UserService
-	Dao     *dao.UserDao
 }
 
 /*
@@ -21,11 +17,10 @@ NewUserController :
 
 	创建用户控制器实例
 */
-func NewUserController(svc *service.UserService, dao *dao.UserDao) *UserController {
+func NewUserController(svc *service.UserService) *UserController {
 	return &UserController{
 		BaseApi: controller.NewBaseApi(),
 		Service: svc,
-		Dao:     dao,
 	}
 }
 
@@ -33,7 +28,7 @@ func NewUserController(svc *service.UserService, dao *dao.UserDao) *UserControll
 func (c UserController) UserRegister(ctx *gin.Context) {
 	registerReq := http_models.UserRegister{}
 	if err := ctx.ShouldBindJSON(&registerReq); err != nil {
-		ctx.JSON(config.BadRequest, gin.H{
+		ctx.JSON(controller.BadRequest, gin.H{
 			"error":   "请求参数错误",
 			"message": err.Error(),
 		})
@@ -41,13 +36,13 @@ func (c UserController) UserRegister(ctx *gin.Context) {
 	}
 	userID, err := c.Service.UserRegister(registerReq)
 	if err != nil {
-		ctx.JSON(config.UserRegisterFail, gin.H{
+		ctx.JSON(controller.UserRegisterFail, gin.H{
 			"error":   "注册失败",
 			"message": err.Error(),
 		})
 		return
 	}
-	ctx.JSON(config.UserLoginSuccess, gin.H{
+	ctx.JSON(controller.UserLoginSuccess, gin.H{
 		"message": "注册成功",
 		"user_id": userID,
 	})
@@ -57,7 +52,7 @@ func (c UserController) UserRegister(ctx *gin.Context) {
 func (c UserController) UserLoginByPhone(ctx *gin.Context) {
 	loginReq := http_models.UserLoginByPhone{}
 	if err := ctx.ShouldBindJSON(&loginReq); err != nil {
-		ctx.JSON(config.BadRequest, gin.H{
+		ctx.JSON(controller.BadRequest, gin.H{
 			"error":   "请求参数错误",
 			"message": err.Error(),
 		})
@@ -65,13 +60,13 @@ func (c UserController) UserLoginByPhone(ctx *gin.Context) {
 	}
 	loginData, err := c.Service.UserLoginByPhone(&loginReq)
 	if err != nil {
-		ctx.JSON(config.UserLoginFail, gin.H{
+		ctx.JSON(controller.UserLoginFail, gin.H{
 			"error":   "登录失败",
 			"message": err.Error(),
 		})
 		return
 	}
-	ctx.JSON(config.UserLoginSuccess, gin.H{
+	ctx.JSON(controller.UserLoginSuccess, gin.H{
 		"message": "登录成功",
 		"data":    loginData,
 	})
@@ -81,7 +76,7 @@ func (c UserController) UserLoginByPhone(ctx *gin.Context) {
 func (c UserController) UserLoginByEmail(ctx *gin.Context) {
 	loginReq := http_models.UserLoginByEmail{}
 	if err := ctx.ShouldBindJSON(&loginReq); err != nil {
-		ctx.JSON(config.BadRequest, gin.H{
+		ctx.JSON(controller.BadRequest, gin.H{
 			"error":   "请求参数错误",
 			"message": err.Error(),
 		})
@@ -89,13 +84,13 @@ func (c UserController) UserLoginByEmail(ctx *gin.Context) {
 	}
 	loginData, err := c.Service.UserLoginByEmail(&loginReq)
 	if err != nil {
-		ctx.JSON(config.UserLoginFail, gin.H{
+		ctx.JSON(controller.UserLoginFail, gin.H{
 			"error":   "登录失败",
 			"message": err.Error(),
 		})
 		return
 	}
-	ctx.JSON(config.UserLoginSuccess, gin.H{
+	ctx.JSON(controller.UserLoginSuccess, gin.H{
 		"message": "登录成功",
 		"data":    loginData,
 	})
@@ -105,13 +100,13 @@ func (c UserController) UserLoginByEmail(ctx *gin.Context) {
 func (c UserController) GetUserProfile(ctx *gin.Context) {
 	user, exists := ctx.Get("user")
 	if !exists {
-		ctx.JSON(config.Unauthorized, gin.H{
+		ctx.JSON(controller.Unauthorized, gin.H{
 			"error": "用户未认证",
 		})
 		ctx.Abort() //终止流程
 		return
 	}
-	ctx.JSON(config.Success, gin.H{
+	ctx.JSON(controller.Success, gin.H{
 		"message": "获取用户信息成功",
 		"data":    user,
 	})
