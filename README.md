@@ -1,6 +1,11 @@
 # Supply_and_demand
 
-> [kdos文档](https://www.kdocs.cn/l/ceSdB4C50d7w) [database文档](./instruction/database_note.md)
+> [🔗kdos文档](https://www.kdocs.cn/l/ceSdB4C50d7w) 
+
+> [🔗database文档](./instruction/database_note.md)
+
+> [🔗数据库设计json文件](./instruction/datebase_ER_map.json) 
+> 将*`./instruction/database_ER_map.json`文件导入到[drawDB](https://www.drawdb.app/editor)中可查看
 
 # 注册、登录
 
