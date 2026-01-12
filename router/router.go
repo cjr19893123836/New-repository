@@ -1,10 +1,10 @@
 package router
 
 import (
-	"Supply/Supply_and_Demand/config"
-	"Supply/Supply_and_Demand/controller/http_controller"
-	"Supply/Supply_and_Demand/middleware"
-	"Supply/Supply_and_Demand/service"
+	"Supply_and_Demand/config"
+	"Supply_and_Demand/controller/http_controller"
+	"Supply_and_Demand/middleware"
+	"Supply_and_Demand/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )

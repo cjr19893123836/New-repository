@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"Supply/Supply_and_Demand/global"
-	"Supply/Supply_and_Demand/http_models"
+	"Supply_and_Demand/global"
+	"Supply_and_Demand/http_models"
 	"errors"
 	"log"
 

@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"Supply/Supply_and_Demand/config"
+	"Supply_and_Demand/config"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

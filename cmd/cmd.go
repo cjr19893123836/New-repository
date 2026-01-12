@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"Supply/Supply_and_Demand/config"
-	"Supply/Supply_and_Demand/global"
-	"Supply/Supply_and_Demand/router"
-	"Supply/Supply_and_Demand/service"
-	"Supply/Supply_and_Demand/utils"
+	"Supply_and_Demand/config"
+	"Supply_and_Demand/global"
+	"Supply_and_Demand/router"
+	"Supply_and_Demand/service"
+	"Supply_and_Demand/utils"
 	"context"
 	"fmt"
 	"net/http"
@@ -22,7 +22,7 @@ func Start() {
 	fmt.Println()
 	fmt.Println("正在加载配置文件...")
 	// cfg 包含所有服务配置信息，包括服务器、数据库、JWT等
-	cfg, err := config.LoadConfig("Supply_and_Demand/config/config.yaml")
+	cfg, err := config.LoadConfig("config/config.yaml")
 
 	fmt.Println("查看配置文件")
 

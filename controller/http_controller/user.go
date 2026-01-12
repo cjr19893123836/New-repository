@@ -1,9 +1,9 @@
 package http_controller
 
 import (
-	"Supply/Supply_and_Demand/controller"
-	"Supply/Supply_and_Demand/http_models"
-	"Supply/Supply_and_Demand/service"
+	"Supply_and_Demand/controller"
+	"Supply_and_Demand/http_models"
+	"Supply_and_Demand/service"
 	"github.com/gin-gonic/gin"
 )
 

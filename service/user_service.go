@@ -1,10 +1,10 @@
 package service
 
 import (
-	"Supply/Supply_and_Demand/dao"
-	"Supply/Supply_and_Demand/global"
-	http_models2 "Supply/Supply_and_Demand/http_models"
-	"Supply/Supply_and_Demand/utils"
+	"Supply_and_Demand/dao"
+	"Supply_and_Demand/global"
+	http_models2 "Supply_and_Demand/http_models"
+	"Supply_and_Demand/utils"
 	"errors"
 	"fmt"
 	"time"

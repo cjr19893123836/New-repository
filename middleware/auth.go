@@ -11,9 +11,9 @@
 package middleware
 
 import (
-	"Supply/Supply_and_Demand/config"
-	"Supply/Supply_and_Demand/controller"
-	"Supply/Supply_and_Demand/utils"
+	"Supply_and_Demand/config"
+	"Supply_and_Demand/controller"
+	"Supply_and_Demand/utils"
 	"fmt"                      // 格式化输出
 	"github.com/gin-gonic/gin" // Gin Web框架
 	"strconv"
