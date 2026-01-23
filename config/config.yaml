@@ -12,16 +12,16 @@ mode:
 
 mysql:
   host: "127.0.0.1"
-  port: "3306"
-  user: "root"  # 使用专用数据库用户(换成自己的)
+  port: "9974"
+  user: "supply_and_demand"  # 使用专用数据库用户(换成自己的)
   password: "123456"  # 数据库密码，请妥善保管(换成自己的)
-  dbname: "supply_db" # 数据库名称(换成自己的)
+  dbname: "supply_and_demand" # 数据库名称(换成自己的)
   charset: "utf8mb4&parseTime=True&loc=Local"
 
 redis:
   host: "127.0.0.1"
-  port: "6379"
-  password: "123456"  # Redis密码，请妥善保管(换成自己的)
+  port: "9916"
+  password: "redis_pwd"  # Redis密码，请妥善保管(换成自己的)
   db: 0
 
 jwt:
@@ -29,7 +29,11 @@ jwt:
   expire: 0
   issuer: "SupplyUser"
   whitelist: [
-    '/api/v1/users/getUserList']
+    '/api/v1/users/getUserList',
+    '/api/v1/users/Register',
+    '/api/v1/users/LoginByPhone',
+    '/api/v1/users/LoginByEmail',
+  ]
 
 rate_limit:
   enable: true

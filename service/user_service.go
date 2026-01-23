@@ -51,7 +51,7 @@ func (m *UserService) UserRegister(registerInfo http_models2.UserRegister) (uint
 
 	// 重新查询获取用户ID（因为CreateUser中的user可能没有返回ID）
 	newUser := http_models2.User{}
-	err = dao.DB.Where("phone = ?", registerInfo.Phone).First(&newUser).Error
+	err = m.Dao.Orm.Where("phone = ?", registerInfo.Phone).First(&newUser).Error
 	if err != nil {
 		return 0, err
 	}
@@ -72,7 +72,7 @@ func (m *UserService) UserLoginByPhone(LoginInfo *http_models2.UserLoginByPhone)
 		return nil, err
 	}
 	//更新最后登录时间
-	dao.DB.Model(&user).Update("last_login", time.Now())
+	m.Dao.Orm.Model(&user).Update("last_login", time.Now())
 	return &http_models2.LoginSuccessData{ //创建结构体指针
 		UserID:   user.UserID,
 		Username: user.Username,
