@@ -33,6 +33,7 @@ jwt:
     '/api/v1/users/Register',
     '/api/v1/users/LoginByPhone',
     '/api/v1/users/LoginByEmail',
+    '/api/v1/users/CreateProduct',
   ]
 
 rate_limit:
@@ -52,3 +53,6 @@ http_routes:
       - path: "/LoginByEmail"
         methods: ["POST"]
         handler: "UserLoginByEmail"
+      - path: "/CreateProduct"
+        methods: ["POST"]
+        handler: "CreateProduct"

@@ -1,23 +1,28 @@
 package dto
 
+import (
+	"errors"
+)
+
 const (
 	ERRConditionInvalid = errors.New("成色参数无效")
 	ERRTradeTypeInvalid = errors.New("交易方式参数无效")
 	ERRTransactionMethod= errors.New("邮寄方式参数无效")
 )
 
-type ProductDTO struct {
+type ProductReq struct {
+	UserID      uint    `json:"user_id" binding:""`        //用户ID
 	CategoryID   int64   `json:"category_id" binding:"required"`    //分类ID
 	Title        string  `json:"title" binding:"required"`          //标题
 	IntroText    string  `json:"intro_text" binding:"required"`     //描述
 	OriginPrice  float64 `json:"origin_price" binding:"required"`   //原价（打折前）
 	MainImageUrl string  `json:"main_image_url" binding:"required"` //主图
 	Condition	string  `json:"condition" binding:"required"`      //成色
-	TradeType    int     `json:"trade_type" binding:"required"`     //交易方式
-	FreeShipping bool    `json:"free_shipping" binding:"required"`  //邮寄方式
+	TradeType    string  `json:"trade_type" binding:"required"`     //交易方式
+	FreeShipping int     `json:"free_shipping" binding:"required"`  //邮寄方式
 }
 
-func (p *ProductDTO) GetCondition() (string, error) {
+func (p *ProductReq) GetCondition() (string, error) {
 	switch p.Condition {
 	case "全新":
 		return "全新", nil
@@ -34,7 +39,7 @@ func (p *ProductDTO) GetCondition() (string, error) {
 	}
 }
 
-func (p *ProductDTO) GetTradeType() (string, error) {
+func (p *ProductReq) GetTradeType() (string, error) {
 	switch p.Condition {
 	case "快递":
 		return "快递", nil
@@ -45,7 +50,7 @@ func (p *ProductDTO) GetTradeType() (string, error) {
 	}
 }
 
-func (p *ProductDTO) GetTransactionMethod() (string, error) {
+func (p *ProductReq) GetTransactionMethod() (int, error) {
 	switch p.Condition {
 	// todo 补充交易方式
 

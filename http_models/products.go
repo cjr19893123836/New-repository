@@ -20,8 +20,8 @@ type Product struct {
 	ViewCount    int       `gorm:"column:view_count"`     //浏览量
 	WantCount    int       `gorm:"column:want_count"`     //想要的数量
 	Condition    string    `gorm:"column:condition"`      //成色
-	TradeType    int       `gorm:"column:trade_type"`     //交易方式
-	FreeShipping bool      `gorm:"column:free_shipping"`  //邮寄方式
+	TradeType    string    `gorm:"column:trade_type"`     //交易方式
+	FreeShipping int       `gorm:"column:free_shipping"`  //邮寄方式
 	CollectCount int       `gorm:"column:collect_count"`  //收藏量
 	CreateDate   time.Time `gorm:"column:create_date"`    //商品发布时间
 }
