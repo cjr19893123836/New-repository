@@ -10,6 +10,7 @@ import (
 	"Supply/Supply_and_Demand/http_models"
 	"context"
 	"fmt"
+
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -25,7 +26,7 @@ import (
 func InitMysql(cfg MySQLConfig) (*gorm.DB, error) {
 	// 自定义Logger
 	LogMode := logger.Info
-	// 没有读取到viper配置则输出错误
+	// 没有读取到viper配置则输出错误z
 	if !viper.GetBool("mode.develop") {
 		LogMode = logger.Error
 	}

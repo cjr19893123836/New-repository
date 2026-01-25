@@ -11,17 +11,17 @@ mode:
   develop: true
 
 mysql:
-  host: ""
-  port: ""
-  user: ""  # 使用专用数据库用户(换成自己的)
-  password: ""  # 数据库密码，请妥善保管(换成自己的)
-  dbname: "" # 数据库名称(换成自己的)
-  charset: ""
+  host: "127.0.0.1"
+  port: "3306"
+  user: "1"  # 使用专用数据库用户(换成自己的)
+  password: "123456"  # 数据库密码，请妥善保管(换成自己的)
+  dbname: "aaa" # 数据库名称(换成自己的)
+  charset: "utf8mb4&parseTime=True&loc=Local"
 
 redis:
-  host: ""
-  port: ""
-  password: ""  # Redis密码，请妥善保管(换成自己的)
+  host: "127.0.0.1"
+  port: "6379"
+  password: "123456"  # Redis密码，请妥善保管(换成自己的)
   db: 0
 
 jwt:
