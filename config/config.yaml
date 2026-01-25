@@ -1,5 +1,5 @@
 server:
-  port: "8080"
+  port: "1457"
   mode: "debug" # debug模式
   timeout: 30
   allow_origin: "*"  # 允许的跨域来源，*表示允许所有
@@ -12,16 +12,28 @@ mode:
 
 mysql:
   host: "127.0.0.1"
+<<<<<<< HEAD
   port: "3306"
   user: "1"  # 使用专用数据库用户(换成自己的)
   password: "123456"  # 数据库密码，请妥善保管(换成自己的)
   dbname: "aaa" # 数据库名称(换成自己的)
+=======
+  port: "9974"
+  user: "supply_and_demand"  # 使用专用数据库用户(换成自己的)
+  password: "123456"  # 数据库密码，请妥善保管(换成自己的)
+  dbname: "supply_and_demand" # 数据库名称(换成自己的)
+>>>>>>> 5ae088d944cb6bd8a20ebf6cd0cea46264c4e741
   charset: "utf8mb4&parseTime=True&loc=Local"
 
 redis:
   host: "127.0.0.1"
+<<<<<<< HEAD
   port: "6379"
   password: "123456"  # Redis密码，请妥善保管(换成自己的)
+=======
+  port: "9916"
+  password: "redis_pwd"  # Redis密码，请妥善保管(换成自己的)
+>>>>>>> 5ae088d944cb6bd8a20ebf6cd0cea46264c4e741
   db: 0
 
 jwt:
@@ -29,7 +41,11 @@ jwt:
   expire: 0
   issuer: "SupplyUser"
   whitelist: [
-    '/api/v1/users/getUserList']
+    '/api/v1/users/getUserList',
+    '/api/v1/users/Register',
+    '/api/v1/users/LoginByPhone',
+    '/api/v1/users/LoginByEmail',
+  ]
 
 rate_limit:
   enable: true

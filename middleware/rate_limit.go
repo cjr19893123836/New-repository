@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"Supply/Supply_and_Demand/config"
+	"Supply_and_Demand/config"
 	"golang.org/x/time/rate"
 
 	"net/http"

@@ -7,7 +7,7 @@
 package config
 
 import (
-	"Supply/Supply_and_Demand/http_models"
+	"Supply_and_Demand/http_models"
 	"context"
 	"fmt"
 

@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"Supply/Supply_and_Demand/config"
-	"Supply/Supply_and_Demand/global"
-	"Supply/Supply_and_Demand/router"
-	"Supply/Supply_and_Demand/service"
-	"Supply/Supply_and_Demand/utils"
+	"Supply_and_Demand/config"
+	"Supply_and_Demand/global"
+	"Supply_and_Demand/router"
+	"Supply_and_Demand/service"
+	"Supply_and_Demand/utils"
 	"context"
 	"fmt"
 	"net/http"

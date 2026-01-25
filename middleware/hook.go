@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"Supply/Supply_and_Demand/controller"
-	"Supply/Supply_and_Demand/utils"
+	"Supply_and_Demand/controller"
+	"Supply_and_Demand/utils"
 	"strings"
 
 	"github.com/gin-gonic/gin"
