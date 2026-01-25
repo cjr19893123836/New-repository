@@ -1,5 +1,11 @@
 package dao
 
+import (
+	"Supply_and_Demand/http_models"
+
+	"gorm.io/gorm"
+	"Supply_and_Demand/global"
+)
 
 type ProductDao struct {
 	Orm *gorm.DB

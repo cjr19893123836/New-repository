@@ -4,20 +4,20 @@ import (
 	"errors"
 )
 
-const (
-	ERRConditionInvalid = errors.New("成色参数无效")
-	ERRTradeTypeInvalid = errors.New("交易方式参数无效")
-	ERRTransactionMethod= errors.New("邮寄方式参数无效")
+var (
+	ERRConditionInvalid  = errors.New("成色参数无效")
+	ERRTradeTypeInvalid  = errors.New("交易方式参数无效")
+	ERRTransactionMethod = errors.New("邮寄方式参数无效")
 )
 
 type ProductReq struct {
-	UserID      uint    `json:"user_id" binding:""`        //用户ID
-	CategoryID   int64   `json:"category_id" binding:"required"`    //分类ID
+	UserID       uint    `json:"user_id" binding:""`                //用户ID
+	CategoryID   uint    `json:"category_id" binding:"required"`    //分类ID
 	Title        string  `json:"title" binding:"required"`          //标题
 	IntroText    string  `json:"intro_text" binding:"required"`     //描述
 	OriginPrice  float64 `json:"origin_price" binding:"required"`   //原价（打折前）
 	MainImageUrl string  `json:"main_image_url" binding:"required"` //主图
-	Condition	string  `json:"condition" binding:"required"`      //成色
+	Condition    string  `json:"condition" binding:"required"`      //成色
 	TradeType    string  `json:"trade_type" binding:"required"`     //交易方式
 	FreeShipping int     `json:"free_shipping" binding:"required"`  //邮寄方式
 }
@@ -32,7 +32,7 @@ func (p *ProductReq) GetCondition() (string, error) {
 		return "九成新", nil
 	case "八成新":
 		return "八成新", nil
-	case "有破损"
+	case "有破损":
 		return "有破损", nil
 	default:
 		return "", ERRConditionInvalid
@@ -40,22 +40,22 @@ func (p *ProductReq) GetCondition() (string, error) {
 }
 
 func (p *ProductReq) GetTradeType() (string, error) {
-	switch p.Condition {
-	case "快递":
-		return "快递", nil
+	switch p.TradeType {
+	case "邮寄":
+		return "邮寄", nil
 	case "自提":
 		return "自提", nil
 	default:
-		return "", ERRTradeTypeInvalidd
+		return "", ERRTradeTypeInvalid
 	}
 }
 
 func (p *ProductReq) GetTransactionMethod() (int, error) {
-	switch p.Condition {
+	switch p.FreeShipping {
 	// todo 补充交易方式
-
-
 	default:
-		return "", ERRTransactionMethod
+		return p.FreeShipping, nil
+		//default:
+		//	return 0, ERRTransactionMethod
 	}
 }

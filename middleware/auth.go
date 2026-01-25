@@ -14,10 +14,11 @@ import (
 	"Supply_and_Demand/config"
 	"Supply_and_Demand/controller"
 	"Supply_and_Demand/utils"
-	"fmt"                      // 格式化输出
-	"github.com/gin-gonic/gin" // Gin Web框架
+	"fmt" // 格式化输出
 	"strconv"
 	"strings" // 字符串处理
+
+	"github.com/gin-gonic/gin" // Gin Web框架
 )
 
 /*
@@ -97,7 +98,7 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 		fmt.Println(userExit)
 
 		// 将用户ID存入上下文
-		c.Set("userID", userExit)
+		c.Set("userID", uint(userExit))
 
 		// 继续处理请求
 		c.Next()

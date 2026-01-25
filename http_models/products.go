@@ -8,8 +8,8 @@ import (
 
 type Product struct {
 	gorm.Model
-	UserID       int64     `gorm:"column:user_id"`        //用户ID
-	CategoryID   int64     `gorm:"column:category_id"`    //分类ID
+	UserID       uint     `gorm:"column:user_id"`        //用户ID
+	CategoryID   uint     `gorm:"column:category_id"`    //分类ID
 	Title        string    `gorm:"column:title"`          //标题
 	IntroText    string    `gorm:"column:intro_text"`     //描述
 	Price        float64   `gorm:"column:price"`          //价格

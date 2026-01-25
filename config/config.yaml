@@ -53,6 +53,8 @@ http_routes:
       - path: "/LoginByEmail"
         methods: ["POST"]
         handler: "UserLoginByEmail"
+  - prefix: "/api/v1/products"
+    routes:
       - path: "/CreateProduct"
         methods: ["POST"]
         handler: "CreateProduct"

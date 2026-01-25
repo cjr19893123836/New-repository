@@ -2,9 +2,10 @@ package service
 
 import (
 	"Supply_and_Demand/dto"
+	"Supply_and_Demand/dao"
 	"Supply_and_Demand/http_models"
 
-	"errors"
+	"time"
 )
 
 type ProductService struct {
@@ -17,7 +18,7 @@ func NewProductService() *ProductService {
 	}
 }
 
-func (s *ProductService) CreateProduct(product dto.ProductReq) (int64, error) {
+func (s *ProductService) CreateProduct(product dto.ProductReq) (uint, error) {
 	condition, err := product.GetCondition()
 	if err != nil {
 		return 0, err
@@ -34,7 +35,7 @@ func (s *ProductService) CreateProduct(product dto.ProductReq) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	product.TransactionMethod = transactionMethod
+	product.FreeShipping = transactionMethod
 
 	// 数据转换(DTO->实体)
 	productEntity := http_models.Product{
