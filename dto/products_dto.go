@@ -59,3 +59,19 @@ func (p *ProductReq) GetTransactionMethod() (int, error) {
 		//	return 0, ERRTransactionMethod
 	}
 }
+
+type ProductResp struct {
+	ID           uint    `json:"id"`
+	UserID       uint    `json:"user_id"`
+	Title        string  `json:"title"`
+	IntroText    string  `json:"intro_text"`
+	Price        float64 `json:"price"`
+	OriginPrice  float64 `json:"origin_price"`
+	MainImageUrl string  `json:"main_image_url"`
+	PublishDate  string  `json:"publish_date"`
+	ViewCount    int     `json:"view_count"`
+	WantCount    int     `json:"want_count"`
+	Condition    string  `json:"condition"`
+	TradeType    string  `json:"trade_type"`
+	CollectCount int     `json:"collect_count"`
+}

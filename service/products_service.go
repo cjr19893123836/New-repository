@@ -1,8 +1,8 @@
 package service
 
 import (
-	"Supply_and_Demand/dto"
 	"Supply_and_Demand/dao"
+	"Supply_and_Demand/dto"
 	"Supply_and_Demand/http_models"
 
 	"time"
@@ -39,21 +39,21 @@ func (s *ProductService) CreateProduct(product dto.ProductReq) (uint, error) {
 
 	// 数据转换(DTO->实体)
 	productEntity := http_models.Product{
-		UserID:        product.UserID,
-		CategoryID:    product.CategoryID,
-		Title:         product.Title,
-		IntroText:     product.IntroText,
-		OriginPrice:   product.OriginPrice,
-		MainImageUrl:  product.MainImageUrl,
-		PublishDate:   time.Now(),
-		Status:        "待审核",
-		ViewCount:     0,
-		WantCount:     0,
-		Condition:     product.Condition,
-		TradeType:     product.TradeType,
-		FreeShipping:  product.FreeShipping,
-		CollectCount:  0,
-		CreateDate:    time.Now(),
+		UserID:       product.UserID,
+		CategoryID:   product.CategoryID,
+		Title:        product.Title,
+		IntroText:    product.IntroText,
+		OriginPrice:  product.OriginPrice,
+		MainImageUrl: product.MainImageUrl,
+		PublishDate:  time.Now(),
+		Status:       "待审核",
+		ViewCount:    0,
+		WantCount:    0,
+		Condition:    product.Condition,
+		TradeType:    product.TradeType,
+		FreeShipping: product.FreeShipping,
+		CollectCount: 0,
+		CreateDate:   time.Now(),
 	}
 	err = s.Dao.CreateProduct(productEntity)
 
@@ -62,4 +62,8 @@ func (s *ProductService) CreateProduct(product dto.ProductReq) (uint, error) {
 	}
 
 	return productEntity.ID, nil
+}
+
+func (s *ProductService) GetRandomProducts(limit int) ([]http_models.Product, error) {
+	return s.Dao.GetRandomProducts(limit)
 }

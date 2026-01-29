@@ -17,6 +17,7 @@ import (
 
 func Start() {
 	var initErr error
+
 	// 初始化并验证系统配置文件
 	fmt.Println()
 	fmt.Println("正在加载配置文件...")
@@ -32,6 +33,7 @@ func Start() {
 	}
 
 	fmt.Println("配置文件加载成功，开始验证配置...")
+
 	// 验证必要配置项是否设置
 	if cfg.Server.Port == "" {
 		fmt.Println("服务器端口配置缺失")

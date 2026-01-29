@@ -223,6 +223,8 @@ func getHTTPHandlerProduct(inController *http_controller.ProductController, name
 	switch name {
 	case "CreateProduct":
 		return inController.CreateProduct
+	case "GetRandomProduct":
+		return inController.GetRandomProduct
 	default:
 		return nil
 	}
