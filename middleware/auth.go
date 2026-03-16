@@ -73,10 +73,17 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 		tokenString := strings.TrimPrefix(authHeader, TOKEN_PREFIX)
 		c.Set("inToken", tokenString)
 		token, err := utils.ParseToken(tokenString)
+		if err != nil {
+			controller.Fail(c, controller.ResponseJson{
+				Code: controller.TOKENPARSE_ERROR_CODE,
+				Msg:  "token解析失败",
+			})
+			return
+		}
 		userExit := token.UserID
 
 		// 检查令牌是否成功解析
-		if err != nil || userExit == 0 {
+		if userExit == 0 {
 			controller.Fail(c, controller.ResponseJson{
 				Code: controller.TOKENPARSE_ERROR_CODE,
 				Msg:  "token解析失败",

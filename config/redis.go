@@ -97,6 +97,10 @@ key存在：返回与 key 相关联的字符串值
 key不存在：nil
 key的值不是字符串：返回error
 */
-func Get(key string) (any, error) {
+func Get(key string) (string, error) {
 	return RedisClient.Get(context.Background(), key).Result()
+}
+
+func Set(key string, val any, exp time.Duration) (error)  {
+	return RedisClient.Set(context.Background(), key, val, exp).Err()
 }

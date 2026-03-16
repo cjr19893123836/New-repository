@@ -1,12 +1,14 @@
 package service
 
 import (
+	"Supply_and_Demand/config"
 	"Supply_and_Demand/dao"
 	"Supply_and_Demand/global"
 	http_models2 "Supply_and_Demand/http_models"
 	"Supply_and_Demand/utils"
 	"errors"
 	"fmt"
+	"strconv"
 	"time"
 )
 
@@ -71,6 +73,13 @@ func (m *UserService) UserLoginByPhone(LoginInfo *http_models2.UserLoginByPhone)
 	if err != nil {
 		return nil, err
 	}
+	//存储token到redis
+	tokenValid := fmt.Sprintf("LOGIN_USER_%d", user.UserID)
+	err = config.Set(tokenValid, token, 24 * 7 * time.Hour)
+	if err != nil {
+		fmt.Println("userID:" + strconv.Itoa(int(user.UserID)) + " token存储到redis失败")
+		return nil, err
+	}
 	//更新最后登录时间
 	m.Dao.Orm.Model(&user).Update("last_login", time.Now())
 	return &http_models2.LoginSuccessData{ //创建结构体指针
@@ -89,6 +98,13 @@ func (m *UserService) UserLoginByEmail(loginInfo *http_models2.UserLoginByEmail)
 	}
 	token, err := utils.GenerateToken(user.UserID, user.Username)
 	if err != nil {
+		return nil, err
+	}
+	//存储token到redis
+	tokenValid := fmt.Sprintf("LOGIN_USER_%d", user.UserID)
+	err = config.Set(tokenValid, token, 24 * 7 * time.Hour)
+	if err != nil {
+		fmt.Println("userID:" + strconv.Itoa(int(user.UserID)) + " token存储到redis失败")
 		return nil, err
 	}
 	//更新最后登录时间
