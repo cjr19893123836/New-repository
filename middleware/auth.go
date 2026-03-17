@@ -93,7 +93,7 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 
 		// 验证令牌是否有效
 		tokenValid := strings.Replace("LOGIN_USER_{id}", "{id}", strconv.Itoa(int(userExit)), -1)
-		stUserToken, err := config.Get(tokenValid)
+		stUserToken, err := config.GetString(tokenValid)
 
 		if tokenString != stUserToken || err != nil {
 			controller.Fail(c, controller.ResponseJson{

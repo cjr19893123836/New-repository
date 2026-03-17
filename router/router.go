@@ -77,6 +77,7 @@ func setupMiddlewares(r *gin.Engine, cfg *config.AppConfig) {
 		middleware.CorsMiddleware(cfg), // CORS支持
 		middleware.RateLimit(cfg),      // 限流
 		middleware.AuthMiddleware(cfg), // 认证
+		middleware.Logger(cfg),					// log日志
 	)
 }
 
