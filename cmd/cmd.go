@@ -31,6 +31,7 @@ func Start() {
 	if err != nil {
 		fmt.Printf("加载配置失败: %v", err)
 	}
+
 	fmt.Println("配置文件加载成功，开始验证配置...")
 
 	// 验证必要配置项是否设置
@@ -82,9 +83,10 @@ func Start() {
 
 	// ---------- 初始化 Service ----------
 	userService := service.NewUserService()
+	productService := service.NewProductService()
 	// 初始化路由
 	fmt.Println("正在初始化路由...")
-	r := router.SetupRouter(userService, cfg)
+	r := router.SetupRouter(userService, productService, cfg)
 	fmt.Println("路由初始化完成...")
 
 	////定时任务执行

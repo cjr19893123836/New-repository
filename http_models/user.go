@@ -1,3 +1,4 @@
+// 生成用户ID
 package http_models
 
 import (

@@ -10,6 +10,7 @@ import (
 	"Supply_and_Demand/http_models"
 	"context"
 	"fmt"
+
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -118,6 +119,7 @@ func autoMigrate(db *gorm.DB) error {
 	// 定义需要自动迁移的模型列表
 	models := []interface{}{
 		&http_models.User{},
+		&http_models.Product{},
 		// 添加其他模型...
 	}
 

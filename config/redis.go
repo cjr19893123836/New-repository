@@ -7,10 +7,11 @@ package config
 import (
 	"context"
 	"fmt"
-	gocache "github.com/patrickmn/go-cache"
-	"github.com/redis/go-redis/v9"
 	"log"
 	"time"
+
+	gocache "github.com/patrickmn/go-cache"
+	"github.com/redis/go-redis/v9"
 )
 
 // 全局缓存实例
@@ -99,4 +100,19 @@ key的值不是字符串：返回error
 */
 func Get(key string) (any, error) {
 	return RedisClient.Get(context.Background(), key).Result()
+}
+
+func GetString(key string) (string, error) {
+	res, err := RedisClient.Get(context.Background(), key).Result()
+	if err != nil {
+		if err == redis.Nil {
+			return "", nil
+		}
+		return "", err
+	}
+	return res, nil
+}
+
+func Set(key string, val any, exp time.Duration) error {
+	return RedisClient.Set(context.Background(), key, val, exp).Err()
 }

@@ -14,10 +14,11 @@ import (
 	"Supply_and_Demand/config"
 	"Supply_and_Demand/controller"
 	"Supply_and_Demand/utils"
-	"fmt"                      // 格式化输出
-	"github.com/gin-gonic/gin" // Gin Web框架
+	"fmt" // 格式化输出
 	"strconv"
 	"strings" // 字符串处理
+
+	"github.com/gin-gonic/gin" // Gin Web框架
 )
 
 /*
@@ -72,10 +73,17 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 		tokenString := strings.TrimPrefix(authHeader, TOKEN_PREFIX)
 		c.Set("inToken", tokenString)
 		token, err := utils.ParseToken(tokenString)
+		if err != nil {
+			controller.Fail(c, controller.ResponseJson{
+				Code: controller.TOKENPARSE_ERROR_CODE,
+				Msg:  "token解析失败",
+			})
+			return
+		}
 		userExit := token.UserID
 
 		// 检查令牌是否成功解析
-		if err != nil || userExit == 0 {
+		if userExit == 0 {
 			controller.Fail(c, controller.ResponseJson{
 				Code: controller.TOKENPARSE_ERROR_CODE,
 				Msg:  "token解析失败",
@@ -85,7 +93,7 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 
 		// 验证令牌是否有效
 		tokenValid := strings.Replace("LOGIN_USER_{id}", "{id}", strconv.Itoa(int(userExit)), -1)
-		stUserToken, err := config.Get(tokenValid)
+		stUserToken, err := config.GetString(tokenValid)
 
 		if tokenString != stUserToken || err != nil {
 			controller.Fail(c, controller.ResponseJson{
@@ -97,7 +105,7 @@ func AuthMiddleware(cfg *config.AppConfig) gin.HandlerFunc {
 		fmt.Println(userExit)
 
 		// 将用户ID存入上下文
-		c.Set("userID", userExit)
+		c.Set("userID", uint(userExit))
 
 		// 继续处理请求
 		c.Next()
