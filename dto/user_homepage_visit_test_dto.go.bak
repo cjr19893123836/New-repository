@@ -1,0 +1,41 @@
+package dto
+
+import (
+	"Supply_and_Demand/http_models"
+	"errors"
+	"time"
+)
+
+var (
+	ErrHomepageIdRequired    = errors.New("主表ID错误")
+	ErrVisitorUserIdRequired = errors.New("访客用户ID错误")
+	ErrVisitorIP             = errors.New("访客ip地址错误")
+	ErrStudyDurationRequired = errors.New("停留时长错误")
+	ErrEntryPage             = errors.New("入口页面错误")
+)
+
+type UserHomepageDto struct {
+	HomepageId    * int64  `json:"homepage_id" binding:"required"`
+	VisitorUserId *int64  `json:"visitor_user_id" binding:"required"`
+	VisitorIp     *string `json:"visitor_ip"`
+	VisitorDevice *string `json:"visitor_device"`
+	StudyDuration *int64  `json:"study_duration" binding:"required"`
+	EntryPage     *string `json:"entry_page"`
+}
+
+func (rep *UserHomepageDto) ToModel() http_models.UserHomepageVisit {
+	now := time.Now()
+	return http_models.UserHomepageVisit{
+		HomepageId:    req.HomepageId,
+		VisitorUserId: req.VisitorUserId,
+		VisitorIp:     req.VisitorIp,
+		VisitorDevice: req.VisitorDevice,
+		VisitorTime:   &now,
+		StudyDuration: 0,
+		entryPage:     req.EntryPage,
+	}
+}
+
+type UserHomepageVis itorresp struct{}
+
+func (d *UserHomepageDto) Valid() error {}
